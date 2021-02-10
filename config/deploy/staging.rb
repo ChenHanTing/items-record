@@ -61,4 +61,4 @@
 #   }
 
 # reference: https://www.jetbrains.com/help/ruby/capistrano.html#credentials
-server '35.223.49.245', user: 'deploy', roles: %w[app db web]
+server '35.223.49.245', user: 'chenhanting', roles: %w[app db web]
