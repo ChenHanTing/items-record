@@ -49,16 +49,20 @@
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
-# server "example.com",
-#   user: "user_name",
-#   roles: %w{web app},
-#   ssh_options: {
-#     user: "user_name", # overrides user setting above
-#     keys: %w(/home/user_name/.ssh/id_rsa),
-#     forward_agent: false,
-#     auth_methods: %w(publickey password)
-#     # password: "please use keys"
-#   }
-
+# 
 # reference: https://www.jetbrains.com/help/ruby/capistrano.html#credentials
-server '35.223.49.245', user: 'deploy', roles: %w[app db web]
+#
+set :user, 'deploy'
+set :server, '35.223.49.245'
+
+server fetch(:server),
+       user: fetch(:user),
+       roles: %w{web app},
+       ssh_options: {
+         user: fetch(:user),       # overrides user setting above
+         keys: %w(~/.ssh/id_rsa),  # 私有鑰匙
+         forward_agent: true,      # ???
+         verbose: :debug,          # debug 模式
+         auth_methods: %w(publickey password)
+         # password: "please use keys"
+       }

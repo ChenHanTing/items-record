@@ -59,3 +59,18 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+
+set :user, 'deploy'
+set :server, '35.223.49.245'
+
+server fetch(:server),
+       user: fetch(:user),
+       roles: %w{web app},
+       ssh_options: {
+         user: fetch(:user),       # overrides user setting above
+         keys: %w(~/.ssh/id_rsa),  # 私有鑰匙
+         forward_agent: true,      # ???
+         verbose: :debug,          # debug 模式
+         auth_methods: %w(publickey password)
+         # password: "please use keys"
+       }

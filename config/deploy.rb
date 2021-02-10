@@ -5,7 +5,7 @@ lock '~> 3.14.1'
 set :application, 'items-record'
 set :repo_url, 'https://github.com/ChenHanTing/items-record'
 set :branch, 'capistrano-deploy'
-set :deploy_to, "/home/chenhanting/#{fetch :application}"
+set :deploy_to, "/home/deploy/#{fetch :application}"
 append :linked_files, 'config/master.key'
 
 # Default branch is :master
@@ -41,5 +41,3 @@ append :linked_files, 'config/master.key'
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
-
-server '35.223.49.245', user: 'chenhanting', roles: %w[app db web]
