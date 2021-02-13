@@ -32,21 +32,28 @@
   </div>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div class="field">
     <%= form.label :vendor %>
     <%= form.text_field :vendor %>
   </div>
 
-  <div class="field">
-    <%= form.label :features %>
-    <%= form.text_field :features %>
-  </div>
+  <!-- 不實作 -->
+  <% if false %>
+    <div class="field">
+      <%= form.label :features %>
+      <%= form.text_field :features %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+<style>
+  .field,
+  .actions {
+      width: 50%;
+      display: flex;
+      justify-content: space-between;
+  }
+</style>

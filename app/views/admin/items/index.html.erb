@@ -1,39 +1,48 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Admin Items</h1>
+<%= card(controller: 'admin--items') do %>
+  <%= card_header(title: '後台 - 賣出紀錄') do %>
+    <div class="float-right">
+      <%= link_to '新增', new_admin_item_path, class: 'btn btn-primary btn-sm btn-header' %>
+      <%= link_to '匯出Excel', download_admin_items_path, class: 'btn btn-primary btn-sm btn-header' %>
+    </div>
+  <% end %>
+  <%= card_body do %>
+    <div class="table-responsive">
+      <table id='items-list'>
+        <thead>
+        <tr>
+          <th>名稱</th>
+          <th>數量</th>
+          <th>價錢</th>
+          <th>備註</th>
+          <th>使用者email</th>
+          <th>供應商</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+        <!-- 沒包起來會有異常 -->
+        <tbody></tbody>
+      </table>
+    </div>
+  <% end %>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Remark</th>
-      <th>User</th>
-      <th>Vendor</th>
-      <th>Features</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<!-- Table樣式: https://www.w3schools.com/css/css_table.asp -->
 
-  <tbody>
-    <% @items.each do |item| %>
-      <tr>
-        <td><%= item.name %></td>
-        <td><%= item.quantity %></td>
-        <td><%= item.price %></td>
-        <td><%= item.remark %></td>
-        <td><%= item.user_id %></td>
-        <td><%= item.vendor %></td>
-        <td><%= item.features %></td>
-        <td><%= link_to 'Show', admin_item_url(item) %></td>
-        <td><%= link_to 'Edit', edit_admin_item_path(item) %></td>
-        <td><%= link_to 'Destroy', admin_item_url(item), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<style>
+  a.btn-header { color: white; }
 
-<br>
+  #items-list {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+  }
 
-<%= link_to 'New Admin Item', new_admin_item_path %>
+  #items-list td,
+  #items-list th {
+      padding: 8px;
+  }
+</style>

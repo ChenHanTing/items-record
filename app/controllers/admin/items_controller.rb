@@ -1,11 +1,10 @@
 class Admin::ItemsController < ApplicationController
-  before_action :set_admin_item, only: %i[show edit update destroy]
-
-  # GET /admin/items
-  # GET /admin/items.json
-  def index
-    @items = Item.all
-  end
+  # @item
+  before_action :set_item, only: %i[show edit update destroy]
+  # 須先登入
+  before_action :authenticate_user!
+  # dataTable
+  include Datatable
 
   # GET /admin/items/1
   # GET /admin/items/1.json
@@ -24,7 +23,7 @@ class Admin::ItemsController < ApplicationController
   # POST /admin/items
   # POST /admin/items.json
   def create
-    @item = Item.new item_params
+    @item = current_user.items.new item_params
 
     respond_to do |format|
       if @item.save
@@ -61,14 +60,52 @@ class Admin::ItemsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_item
-      @item = Item.find(params[:id])
-    end
+  def download
+    Axlsx::Package.new do |package|
+      package.workbook.add_worksheet(name: example[:file_name]) do |sheet|
+        # excel 標題
+        sheet.add_row example[:title], types: %i[string string string string]
+        # excel 內文
+        example[:content].each do |content|
+          sheet.add_row content, types: %i[string string string string]
+        end
+      end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def item_params
-      params.require(:item).permit(:name, :quantity, :price, :remark, :user_id, :vendor, :features)
+      send_data(package.to_stream.read, filename: "#{example[:file_name]}.xlsx")
     end
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def item_params
+    params.require(:item).permit(:name, :quantity, :price, :remark, :user_id, :vendor, :features)
+  end
+
+  def search_params
+    return if params[:ransack_search].nil?
+
+    params.require(:ransack_search)
+          .permit(:order_status_eq, :created_at_gteq, :created_at_lt)
+          .merge(number_or_order_customer_phone_or_order_customer_name_cont: params[:search][:value])
+  end
+
+  def viewable_lists(filtered_sub_orders)
+    default_viewable_lists filtered_sub_orders, %i[name quantity price remark user_email vendor id id id]
+  end
+
+  # 匯出範例
+  def example
+    {
+      file_name: '紀錄匯出',
+      title: %w(名稱 數量 價錢 備註 使用者email 供應商),
+      content: Item.includes(:user)
+                   .map { |i| [i.name, i.quantity, i.price, i.remark, i.user.email, i.vendor] }
+    }
+  end
 end

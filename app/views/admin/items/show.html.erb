@@ -30,10 +30,12 @@
   <%= @item.vendor %>
 </p>
 
-<p>
-  <strong>Features:</strong>
-  <%= @item.features %>
-</p>
+<% if false %>
+  <p>
+    <strong>Features:</strong>
+    <%= @item.features %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_admin_item_path(@item) %> |
 <%= link_to 'Back', admin_items_path %>

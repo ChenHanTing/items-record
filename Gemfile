@@ -31,6 +31,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry'
+  gem 'pry-nav'
 end
 
 group :development do
@@ -52,8 +54,23 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # 後台使用者
 gem 'devise'
-
+# 使用Pug like模板: Slim
+gem 'slim-rails'
+# JBuilder like
+gem 'active_model_serializers'
+# 搜尋
+gem 'ransack'
+# 欄位印在 mode
+# step1. bundle exec rails g annotate:install
+# step2. rails db:migrate
+gem 'annotate'
+# 部署相關 gem
 gem 'capistrano',                 '3.14.1'
 gem 'capistrano-rails',           '1.4.0'
 gem 'capistrano-rbenv',           '2.1.4 '
 gem 'capistrano-passenger',       '0.2.0'
+# 匯入 excel
+gem 'roo'
+# 匯出 excel
+gem 'caxlsx'
+gem 'caxlsx_rails'
