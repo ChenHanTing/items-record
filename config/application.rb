@@ -16,5 +16,14 @@ module Template
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.assets.initialize_on_precompile = false
+
+    # 設定 slim 為預設模板
+    config.generators do |g|
+      g.template_engine :slim
+    end
+
+    # 設定語系與時區
+    config.i18n.default_locale = 'zh-TW'
+    config.time_zone = 'Taipei'
   end
 end

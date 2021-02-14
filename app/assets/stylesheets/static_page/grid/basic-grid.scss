@@ -1,0 +1,114 @@
+@import '../../helper';
+
+/**
+ * reference
+ * youtube:    https://www.youtube.com/watch?v=9zBsdzdE4sM
+ * cheatsheat: https://cssreference.io/css-grid/
+ **/
+
+.grid-container-before-start {
+  margin-bottom: 30px;
+  display: grid;
+  gap: 1rem;
+
+  /* 1 too skinny, too much code */
+  /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; */
+
+  /* 2 cleaner code */
+  /* grid-template-columns: repeat(12, 1fr); */
+
+  /* 3  better sizing, but overflows */
+  /* grid-template-columns: repeat(12, minmax(240px, 1fr)); */
+
+  /* 4 final */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+
+  .card { @include grid-card; };
+}
+
+.grid-container-start {
+  display: grid;
+  /* 手機版與電腦版 column RWD */
+  @media (min-width: 991px) {
+    grid-template-columns: 2fr repeat(2, 1fr);
+  } else {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+  /* 預設 rows 高度 */
+  grid-auto-rows: minmax(100px, auto);
+  /* 第一 row */
+  grid-template-rows: minmax(400px, auto);
+  /* 間隙 */
+  grid-gap: 20px;
+  grid-template-areas:
+          'header header'
+          'sidebar content'
+          'sidebar content';
+
+  /* grid-template rows/columns 給固定值比較看得出來 */
+  justify-items: stretch;
+  align-items: stretch;
+
+  @media screen and (min-width: 991px) {
+    .grid-item-1 {
+      grid-area: header;
+      // align-self: start;
+      // justify-self: center;
+    }
+    .grid-item-3 { grid-area: sidebar; }
+    .grid-item-4 { grid-area: content; }
+    /* 跨 2 column */
+    .grid-item-7 {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+    /* 跨全 column */
+    .grid-item-9 { grid-column: 1 / -1; }
+
+    /* 跨2 row */
+    .grid-item-13 { grid-row: span 2; }
+
+    /* 跨2 row */
+    .grid-item-14 { grid-row: span 3; }
+  }
+
+  .grid-item {
+    position: relative;
+    font-size: 25px;
+    padding: 20px;
+    padding-top: 50px;
+    color: #222;
+    border: 1px solid white;
+  }
+
+  .grid-item:nth-child(even) {
+    background-color: #379AD6;
+  }
+
+  .grid-item:nth-child(odd) {
+    background-color: #5bbdfa;
+  }
+
+  .grid-item::before {
+    content: 'Grid Item';
+    position: absolute;
+    font-size: 25px;
+    font-weight: bold;
+    top: 10px;
+    left: 15px;
+  }
+
+  .grid-item::after {
+    position: absolute;
+    font-size: 25px;
+    top: 10px;
+    right: 15px;
+    font-weight: bold;
+  }
+
+  @for $i from 1 through 30 {
+    .grid-item-#{$i}::after {
+      content: '#{$i}';
+    }
+  }
+}

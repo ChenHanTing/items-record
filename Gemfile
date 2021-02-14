@@ -74,3 +74,5 @@ gem 'roo'
 # 匯出 excel
 gem 'caxlsx'
 gem 'caxlsx_rails'
+# 假資料
+gem 'faker'

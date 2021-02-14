@@ -61,4 +61,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # 敦聚的專案就這樣設定，我也就這樣設定了
+  Slim::Engine.set_default_options pretty: true
 end

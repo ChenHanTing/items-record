@@ -88,6 +88,15 @@
       <%= sidebar_link_to(admin_items_path, '賣出紀錄列表') %>
     <% end %>
 
+    <!-- Nav Item - Pages Collapse Menu -->
+    <%= admin_sidebar_block(genre: 'items', topic: ' 靜態頁面') do %>
+      <h6 class="collapse-header">Grid:</h6>
+      <%= sidebar_link_to(static_page_grids_path, 'Grid index') %>
+      <%= sidebar_link_to(basic_grid_first_static_page_grids_path, 'Grid Basic 1') %>
+      <%= sidebar_link_to(photo_gallery_static_page_grids_path, 'Photo Gallery') %>
+      <%= sidebar_link_to(animated_grid_static_page_grids_path, 'Animated Grid') %>
+    <% end %>
+
     <!-- Nav Item - Charts -->
     <li class="nav-item">
       <a class="nav-link" href="charts.html">

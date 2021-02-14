@@ -1,0 +1,8 @@
+section.grid-container-before-start
+  - (1..30).each do |num|
+    .card = num
+
+.grid-container-start
+  - (1..30).each do |num|
+    .grid-item(class="grid-item-#{num}")
+      = lorem_sentence
