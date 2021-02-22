@@ -4,7 +4,7 @@ lock '~> 3.14.1'
 # reference: https://www.jetbrains.com/help/ruby/capistrano.html#credentials
 set :application, 'items-record'
 set :repo_url, 'https://github.com/ChenHanTing/items-record'
-set :branch, 'capistrano-deploy'
+set :branch, 'main'
 set :deploy_to, "/home/deploy/#{fetch :application}"
 append :linked_files, 'config/master.key'
 
