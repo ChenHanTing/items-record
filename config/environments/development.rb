@@ -64,4 +64,6 @@ Rails.application.configure do
 
   # 敦聚的專案就這樣設定，我也就這樣設定了
   Slim::Engine.set_default_options pretty: true
+
+  config.webpacker.check_yarn_integrity = false
 end
