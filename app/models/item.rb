@@ -23,4 +23,13 @@
 #
 class Item < ApplicationRecord
   belongs_to :user
+  has_many_attached :pictures
+
+  after_commit :save_dimensions
+
+  private
+
+  def save_dimensions
+    self.pictures.each { _1.analyze unless _1.analyzed? }
+  end
 end

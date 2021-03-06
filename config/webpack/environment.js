@@ -8,4 +8,8 @@ environment.plugins.append('Provide', new webpack.ProvidePlugin({
   Popper: ['popper.js', 'default']
 }))
 
+/* 使用絕對路徑 */
+const customConfig = require('./custom')
+environment.config.merge(customConfig)
+
 module.exports = environment
