@@ -23,7 +23,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -76,3 +76,9 @@ gem 'caxlsx'
 gem 'caxlsx_rails'
 # 假資料
 gem 'faker'
+# 實作 OAuth
+gem 'doorkeeper'
+# 進度條
+gem 'ruby-progressbar'
+# 圖片處理
+gem 'mini_magick'
