@@ -22,14 +22,41 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Item < ApplicationRecord
+  FILE_VALIDATIONS = {
+    content_types: %w[application/jpg image/jpeg image/png],
+    max_size: 5.megabytes,
+    invalid_type: '僅能上傳 jpg jpeg png 檔案',
+    invalid_size: '單一圖片限 5Mb 以下'
+  }
+
   belongs_to :user
   has_many_attached :pictures
 
   after_commit :save_dimensions
 
+  validate :valid_file
+
   private
 
   def save_dimensions
-    self.pictures.each { _1.analyze unless _1.analyzed? }
+    # 若打 postman 使用 analyze 會出現問題:
+    # Caused by Errno::ENOENT: No such file or directory @ rb_sysopen
+    #
+    # self.pictures.each { _1.analyze unless _1.analyzed? }
+  end
+
+  def valid_file
+    return unless pictures.attached?
+
+    valid_type = pictures.all? { _1.content_type.in? FILE_VALIDATIONS[:content_types] }
+    valid_size = pictures.map(&:blob).map(&:byte_size).all? { _1 < FILE_VALIDATIONS[:max_size] }
+
+    if(!valid_type && !valid_size)
+      return errors.add(:pics, FILE_VALIDATIONS.slice(:invalid_type, :invalid_size).values.join('，'))
+    end
+
+    errors.add(:pics, FILE_VALIDATIONS[:invalid_type]) if !valid_type
+    errors.add(:pics, FILE_VALIDATIONS[:invalid_size]) if !valid_size
   end
 end
+
