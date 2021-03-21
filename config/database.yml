@@ -1,20 +1,17 @@
 default: &default
   adapter: postgresql
-  host: 127.0.0.1
-  encoding: utf8
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
-  username: chenhanting
-  password: password
+  host: <%= ENV.fetch("DATABASE_URL") { 'localhost' } %>
 
-development:
-  <<: *default
-  database: hao_dev
+#development:
+#  <<: *default
+#  database: hao_dev
 
-test:
-  <<: *default
-  database: hao_test
+#test:
+#  <<: *default
+#  database: hao_test
 
-production:
-  <<: *default
-  database: hao_prd
+#production:
+#  <<: *default
+#  database: hao_prd
