@@ -39,6 +39,7 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem "letter_opener"
 end
 
 group :test do
@@ -82,3 +83,7 @@ gem 'doorkeeper'
 gem 'ruby-progressbar'
 # 圖片處理
 gem 'mini_magick'
+# 跨網域請求共享
+gem 'rack-cors'
+# 寄信
+gem 'mail'

@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       post 'login', to: 'tokens#login'
       post 'refresh', to: 'tokens#refresh'
       post 'logout', to: 'tokens#revoke'
+      post 'contact', to: 'contact#create'
 
       resources :items
     end
