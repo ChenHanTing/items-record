@@ -11,6 +11,12 @@ module Api
           params[:email],
           params[:source]).deliver_later
 
+        ContactMailer.contact_email(
+          params[:title],
+          params[:content],
+          params[:email],
+          params[:source]).deliver_now
+
         Contact.create(
           title: params[:title],
           content: params[:content],
